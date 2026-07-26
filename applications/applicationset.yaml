@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+
+metadata:
+  name: applications
+  namespace: argocd
+
+spec:
+  goTemplate: true
+  generators:
+    - git:
+        repoURL: https://github.com/Namilaus/argocd_deployment.git
+        revision: HEAD
+
+        directories:
+          - path: applications/*
+
+  template:
+    metadata:
+      name: "{{ .path.basename }}"
+
+    spec:
+      project: default
+
+      source:
+        repoURL: https://github.com/Namilaus/argocd_deployment.git
+        targetRevision: HEAD
+        path: "{{ .path.path }}"
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: namialus
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
