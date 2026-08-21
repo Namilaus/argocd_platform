@@ -1,0 +1,23 @@
+grafana:
+  enabled: true
+
+  ingress:
+    enabled: true
+    ingressClassName: traefik
+    hosts:
+      - grafana.atayi.net
+    tls:
+      - secretName: grafana-tls
+        hosts:
+          - grafana.atayi.net
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+
+  persistence:
+    enabled: true
+    size: 5Gi
+
+  admin:
+    existingSecret: grafana-admin-credentials
+    userKey: admin-user
+    passwordKey: admin-password

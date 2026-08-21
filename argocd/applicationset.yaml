@@ -9,11 +9,11 @@ spec:
   goTemplate: true
   generators:
     - git:
-        repoURL: https://github.com/Namilaus/argocd_deployment.git
+        repoURL: https://github.com/Namilaus/argocd_platform.git
         revision: HEAD
 
         directories:
-          - path: applications/*
+          - path: apps/*
 
   template:
     metadata:
@@ -23,7 +23,7 @@ spec:
       project: default
 
       source:
-        repoURL: https://github.com/Namilaus/argocd_deployment.git
+        repoURL: https://github.com/Namilaus/argocd_platform.git
         targetRevision: HEAD
         path: "{{ .path.path }}"
 

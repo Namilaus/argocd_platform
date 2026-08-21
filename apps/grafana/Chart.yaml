@@ -1,0 +1,11 @@
+apiVersion: v2
+name: grafana
+description: Grafana dashboard
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+dependencies:
+  - name: grafana
+    version: "12.11.1"
+    repository: oci://ghcr.io/grafana-community/helm-charts
+    condition: grafana.enabled
