@@ -93,6 +93,7 @@ ingress:
   tls:
     - hosts:
         - mail.atayi.net
+        - email.atayi.net
       secretName: stalwart-tls
 
 # Persistent volume for the data directory. Required when the
