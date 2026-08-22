@@ -85,6 +85,11 @@ ingress:
         - path: /
           pathType: Prefix
           portName: https
+    - host: email.atayi.net
+      paths:
+        - path: /
+          pathType: Prefix
+          portName: mgmt
   tls:
     - hosts:
         - mail.atayi.net
