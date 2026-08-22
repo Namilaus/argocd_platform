@@ -9,8 +9,20 @@ spec:
   tls:
     - hosts:
         - web.atayi.net
+        - atayi.net
       secretName: web-tls
   rules:
+    - host: atayi.net
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: webservice
+                port:
+                  number: 8085
+
     - host: web.atayi.net
       http:
         paths:
