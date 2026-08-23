@@ -27,7 +27,7 @@ pushShard: ""
 # Remove it once a permanent administrator account has been
 # provisioned through the setup wizard.
 recoveryAdmin:
-  enabled: false
+  enabled: true
   username: admin
   password: "change-me"
 
