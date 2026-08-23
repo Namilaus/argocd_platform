@@ -33,12 +33,3 @@ spec:
     - name: sieve
       port: {{ .Values.service.ports.sieve }}
       targetPort: sieve
-    - name: http
-      port: {{ .Values.service.ports.http }}
-      targetPort: http
-    - name: https
-      port: {{ .Values.service.ports.https }}
-      targetPort: https
-    - name: mgmt
-      port: {{ .Values.service.ports.mgmt }}
-      targetPort: mgmt

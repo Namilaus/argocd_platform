@@ -70,9 +70,6 @@ service:
     pop3: 110
     pop3s: 995
     sieve: 4190
-    http: 80
-    https: 443
-    mgmt: 8080
 
 # Ingress for the HTTP / HTTPS listeners only. Mail protocols
 # require L4 exposure and are not handled here.
