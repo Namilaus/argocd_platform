@@ -6,3 +6,4 @@ resources:
   - service.yaml
   - http.yaml
   - configmap.yaml
+  - service.yaml
