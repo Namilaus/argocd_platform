@@ -30,7 +30,14 @@ spec:
               mountPath: /etc/stalwart/config.json
               subPath: config.json
               readOnly: true
+            - name: tls
+              mountPath: /etc/stalwart/tls
+              readOnly: true
+
       volumes:
         - name: config
           configMap:
             name: stalwart-config
+        - name: tls
+          secret:
+            secretName: stalwart-tls
