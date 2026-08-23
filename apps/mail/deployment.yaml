@@ -15,9 +15,9 @@ spec:
       containers:
         - name: stalwart
           image: stalwartlabs/stalwart:v0.16
-          envFrom:
-            - secretRef:
-                name: stalwart-env
+          # envFrom:
+          #   - secretRef:
+          #       name: stalwart-env
           ports:
             - name: smtps
               containerPort: 465
