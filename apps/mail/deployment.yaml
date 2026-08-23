@@ -22,3 +22,12 @@ spec:
               containerPort: 993
             - name: http
               containerPort: 8080
+          volumeMounts:
+            - name: config
+              mountPath: /etc/stalwart/config.json
+              subPath: config.json
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: stalwart-config
