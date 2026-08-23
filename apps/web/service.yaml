@@ -6,5 +6,9 @@ spec:
   selector:
     app: web
   ports:
-    - port: 8085
-      targetPort: 80
+    - port: 8080
+      targetPort: http
+    - port: 8080
+      targetPort: http
+    - port: 8080
+      targetPort: http
