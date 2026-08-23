@@ -6,9 +6,12 @@ spec:
   selector:
     app: stalwart
   ports:
-    - port: 8080
+    - name: http
+      port: 8080
       targetPort: http
-    - port: 465
+    - name: smtps
+      port: 465
       targetPort: smtps
-    - port: 993
+    - name: imaps
+      port: 993
       targetPort: imaps
