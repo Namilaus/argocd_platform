@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: stalwart-service
 spec:
+  type: LoadBalancer
   selector:
     app: stalwart
   ports:
