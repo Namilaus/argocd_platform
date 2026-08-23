@@ -21,7 +21,7 @@ spec:
               service:
                 name: webservice
                 port:
-                  number: 8085
+                  number: 8080
 
     - host: web.atayi.net
       http:
@@ -32,4 +32,4 @@ spec:
               service:
                 name: webservice
                 port:
-                  number: 8085
+                  number: 8080
