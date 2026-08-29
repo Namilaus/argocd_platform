@@ -4,7 +4,7 @@ metadata:
   name: httproute
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   ingressClassName: traefik
   tls:
