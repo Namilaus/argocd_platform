@@ -18,6 +18,9 @@ spec:
           envFrom:
             - secretRef:
                 name: stalwart-env
+          args:
+            - "--config"
+            - "/etc/stalwart/config.json"
           ports:
             - name: smtps
               containerPort: 465
