@@ -36,6 +36,8 @@ spec:
             - name: tls
               mountPath: /etc/stalwart/tls
               readOnly: true
+            - name: data
+              mountPath: /var/lib/stalwart
 
       volumes:
         - name: config
@@ -44,3 +46,5 @@ spec:
         - name: tls
           secret:
             secretName: stalwart-tls
+        - name: data
+          emptyDir: {}
