@@ -17,6 +17,9 @@ spec:
       containers:
         - name: stalwart
           image: stalwartlabs/stalwart:v0.16
+          envFrom:
+            - secretRef:
+                name: stalwart-env
           args:
             - "--config"
             - "/etc/stalwart/config.json"
