@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: stalwart
+  argocd.argoproj.io/sync-wave: "1"
 spec:
   replicas: 1
   selector:
