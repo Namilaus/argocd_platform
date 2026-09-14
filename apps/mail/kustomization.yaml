@@ -7,3 +7,4 @@ resources:
   - http.yaml
   - configmap.yaml
   - secret.yaml
+  - pvc.yaml
