@@ -30,12 +30,6 @@ spec:
               containerPort: 993
             - name: http
               containerPort: 8080
-          livenessProbe:
-            httpGet:
-              path: /healthz/live
-              port: http
-            initialDelaySeconds: 30
-            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /healthz/ready
