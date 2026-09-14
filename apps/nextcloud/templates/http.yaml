@@ -21,4 +21,4 @@ spec:
               service:
                 name: nextcloud
                 port:
-                  name: {{ .Values.service.port }}
+                  number: {{ .Values.service.port }}
