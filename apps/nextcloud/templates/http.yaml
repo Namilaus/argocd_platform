@@ -19,6 +19,6 @@ spec:
             path: "/"
             backend:
               service:
-                name: {{ include "..fullname" . }}
+                name: nextcloud
                 port:
                   name: {{ .Values.service.port }}
