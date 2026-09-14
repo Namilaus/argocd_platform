@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: stalwart
-          image: stalwartlabs/stalwart:v0.16
+          image: stalwartlabs/stalwart:latest
           envFrom:
             - secretRef:
                 name: stalwart-env
