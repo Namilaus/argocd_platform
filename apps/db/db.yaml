@@ -11,6 +11,8 @@ spec:
       labels:
         app: mysql
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: worker-01
       containers:
         - name: mysql
           image: mysql:latest
