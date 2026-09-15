@@ -138,10 +138,10 @@ nextcloud:
     password: changeme
     ## Use an existing secret
     existingSecret:
-      enabled: false
-      # secretName: nameofsecret
-      usernameKey: nextcloud-username
-      passwordKey: nextcloud-password
+      enabled: true
+      secretName: nextcloudadmin
+      usernameKey: username
+      passwordKey: password
       tokenKey: ""
       smtpUsernameKey: smtp-username
       smtpPasswordKey: smtp-password
