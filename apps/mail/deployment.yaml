@@ -24,6 +24,8 @@ spec:
             - "--config"
             - "/etc/stalwart/config.json"
           ports:
+            - name: smtp
+              containerPort: 25
             - name: smtps
               containerPort: 465
             - name: imaps
