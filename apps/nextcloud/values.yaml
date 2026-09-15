@@ -456,20 +456,20 @@ nextcloud:
     #    value: ENV_VALUE
 
   internalDatabase:
-    enabled: true
+    enabled: false
     name: nextcloud
 
   ##
   ## External database configuration
   ##
   externalDatabase:
-    enabled: false
+    enabled: true
 
     ## Supported database engines: mysql or postgresql
     type: mysql
 
     ## Database host. You can optionally include a colon delimited port like "myhost:1234"
-    host: ""
+    host: "mysql.db.svc.cluster.local:3306"
 
     ## Database user
     user: nextcloud
@@ -482,15 +482,15 @@ nextcloud:
 
     ## Use a existing secret
     existingSecret:
-      enabled: false
+      enabled: true
       # -- e.g. nameofsecret
-      secretName:
-      usernameKey: db-username
-      passwordKey: db-password
+      secretName: mysqlcred
+      usernameKey: username
+      passwordKey: password
       # -- e.g. db-hostname-or-ip
-      hostKey:
+      hostKey: host
       # -- e.g. db-name
-      databaseKey:
+      databaseKey: db
 
   ##
   ## MariaDB chart configuration
