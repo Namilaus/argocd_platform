@@ -149,7 +149,7 @@ nextcloud:
     objectStore:
       # https://docs.nextcloud.com/server/latest/admin_manual/configuration_files/primary_storage.html#simple-storage-service-s3
       s3:
-        enabled: false
+        enabled: true
         # ignored if nextcloud.objectstore.s3.existingSecret is not empty string
         accessKey: ""
         # ignored if nextcloud.objectstore.s3.existingSecret is not empty string
@@ -178,16 +178,16 @@ nextcloud:
         sse_c_key: ""
         # use an existingSecret for S3 credentials. If set, we ignore the following under nextcloud.objectStore.s3
         # endpoint, accessKey, secretKey
-        existingSecret: ""
+        existingSecret: csi-s3-secret
         secretKeys:
           # key in nextcloud.objectStore.s3.existingSecret to use for s3 endpoint
-          host: ""
+          host: endpoint
           # key in nextcloud.objectStore.s3.existingSecret to use for s3 accessKeyID
-          accessKey: ""
+          accessKey: accessKeyID
           # key in nextcloud.objectStore.s3.existingSecret to use for s3 secretAccessKey
-          secretKey: ""
+          secretKey: secretAccessKey
           # key in nextcloud.objectStore.s3.existingSecret to use for the s3 bucket
-          bucket: ""
+          bucket: bucket
           # key in nextcloud.objectStore.s3.existingSecret to use for the s3 sse_c_key
           sse_c_key: ""
       ## options related to using Swift as a primary object storage
@@ -760,7 +760,7 @@ nextcloud:
   ##
   persistence:
     # Nextcloud Data (/var/www/html)
-    enabled: true
+    enabled: false
     annotations: {}
     labels: {}
     ## nextcloud data Persistent Volume Storage Class
@@ -775,7 +775,7 @@ nextcloud:
     ## A manually managed Persistent Volume and Claim
     ## Requires persistence.enabled: true
     ## If defined, PVC must be created manually before volume will be bound
-    existingClaim: nextcloud-data-s3
+    # existingClaim: nextcloud-data-s3
 
     accessMode: ReadWriteOnce
     size: 8Gi
