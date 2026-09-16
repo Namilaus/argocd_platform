@@ -584,10 +584,10 @@ nextcloud:
       storageClass: ""
     master:
       persistence:
-        enabled: true
+        enabled: false
     replica:
       persistence:
-        enabled: true
+        enabled: false
 
   ##
   ## Collabora chart configuration
@@ -651,7 +651,7 @@ nextcloud:
   ## ref: https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron
   ##
   cronjob:
-    enabled: false
+    enabled: true
 
     # Either 'sidecar' or 'cronjob'
     type: sidecar
@@ -760,11 +760,11 @@ nextcloud:
   ##
   persistence:
     # Nextcloud Data (/var/www/html)
-    enabled: false
+    enabled: true
     annotations: {}
     labels: {}
     ## nextcloud data Persistent Volume Storage Class
-    # storageClassName: s3-ionos
+    storageClassName: local-path
     ## If set to "-", storageClassName: "", which disables dynamic provisioning
     ## If undefined (the default) or set to null, no storageClassName spec is
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
