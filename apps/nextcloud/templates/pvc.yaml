@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nextcloud-data-s3
+spec:
+  storageClassName: s3-ionos
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi

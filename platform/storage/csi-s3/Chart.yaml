@@ -1,0 +1,10 @@
+apiVersion: v2
+name: s3-storage
+description: A Helm chart for s3 storage
+type: application
+version: 0.1.0
+
+dependencies:
+  - name: csi-s3
+    version: 0.43.7
+    repository: https://yandex-cloud.github.io/k8s-csi-s3/charts

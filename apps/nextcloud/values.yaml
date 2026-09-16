@@ -126,6 +126,7 @@ nextcloud:
     datadir: /var/www/html/data
     persistence:
       subPath:
+
     # if set, we'll template this list to the NEXTCLOUD_TRUSTED_DOMAINS env var
     trustedDomains:
       - cloud.atayi.net
@@ -502,7 +503,7 @@ nextcloud:
       persistence:
         enabled: false
         # Use an existing Persistent Volume Claim (must be created ahead of time)
-        existingClaim: ""
+        existingClaim: nextcloud-data-s3
         storageClass: ""
         accessMode: ReadWriteOnce
         size: 8Gi
@@ -759,11 +760,11 @@ nextcloud:
   ##
   persistence:
     # Nextcloud Data (/var/www/html)
-    enabled: false
+    enabled: true
     annotations: {}
     labels: {}
     ## nextcloud data Persistent Volume Storage Class
-    ## If defined, storageClassName: <storageClass>
+    # storageClassName: s3-ionos
     ## If set to "-", storageClassName: "", which disables dynamic provisioning
     ## If undefined (the default) or set to null, no storageClassName spec is
     ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
@@ -774,7 +775,7 @@ nextcloud:
     ## A manually managed Persistent Volume and Claim
     ## Requires persistence.enabled: true
     ## If defined, PVC must be created manually before volume will be bound
-    # existingClaim:
+    existingClaim: nextcloud-data-s3
 
     accessMode: ReadWriteOnce
     size: 8Gi
