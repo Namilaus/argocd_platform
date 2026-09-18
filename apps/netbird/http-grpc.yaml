@@ -10,7 +10,6 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.priority: "10"
-    traefik.ingress.kubernetes.io/service.serversscheme: h2c
 
 spec:
   ingressClassName: traefik
@@ -26,20 +25,20 @@ spec:
             path: "/management.ManagementService/"
             backend:
               service:
-                name: netbird-server-service
+                name: netbird-server-grpc-service
                 port:
-                  name: http
+                  name: grpc
           - pathType: Prefix
             path: "/signalexchange.SignalExchange/"
             backend:
               service:
-                name: netbird-server-service
+                name: netbird-server-grpc-service
                 port:
-                  name: http
+                  name: grpc
           - pathType: Prefix
             path: "/management.ProxyService/"
             backend:
               service:
-                name: netbird-server-service
+                name: netbird-server-grpc-service
                 port:
-                  name: http
+                  name: grpc

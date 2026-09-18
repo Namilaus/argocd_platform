@@ -9,4 +9,5 @@ resources:
   - http.yaml
   - pvc.yaml
   - service-stun.yaml
-  - http-grcp.yaml
+  - http-grpc.yaml
+  - service-server-grpc.yaml
