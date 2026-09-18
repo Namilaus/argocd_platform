@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: s3-netbird-data
+spec:
+  storageClassName: s3-ionos
+  resources:
+    requests:
+      storage: 10Gi
+  accessModes:
+    - ReadWriteMany

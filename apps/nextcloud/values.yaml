@@ -131,18 +131,19 @@ nextcloud:
     trustedDomains:
       - cloud.atayi.net
     ## SMTP configuration
-    mail:
+    mail: ## i made the setup for this section on the webui
       enabled: false
       # the user we send email as
-      fromAddress: user
+      fromAddress: cloud
       # the domain we send email from
-      domain: domain.com
+      domain: atayi.net
       smtp:
-        host: domain.com
+        host: mail.atayi.net
+
         secure: ssl
         port: 465
         authtype: LOGIN
-        name: user
+        name: cloud@atayi.net
         password: pass
     ## Primary ObjectStore options
     # see: https://docs.nextcloud.com/server/latest/admin_manual/configuration_files/primary_storage.html#configuring-object-storage-as-primary-storage

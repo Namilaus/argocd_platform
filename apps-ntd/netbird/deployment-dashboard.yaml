@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netbird-dashboard
+spec:
+  selector:
+    matchLabels:
+      app: netbird-dashboard
+  template:
+    metadata:
+      labels:
+        app: netbird-dashboard
+    spec:
+      containers:
+        - name: netbird-dashboard
+          image: netbirdio/dashboard:latest
+          env:
+            - name: NETBIRD_MGMT_API_ENDPOINT
+              value: https://netbird.atayi.net
+            - name: NETBIRD_MGMT_GRPC_API_ENDPOINT
+              value: https://netbird.atayi.net
+            - name: AUTH_AUDIENCE
+              value: netbird-dashboard
+            - name: AUTH_AUDIENCE_ID
+              value: netbird-dashboard
+            - name: AUTH_AUTHORITY
+              value: https://netbird.atayi.net/oauth2
+            - name: USE_AUTH0
+              value: "false"
+            - name: AUTH_REDIRECT_URI
+              value: /nb-auth
+            - name: AUTH_SILENT_REDIRECT_URI
+              value: /nb-silent-auth
+            - name: NGINX_SSL_PORT
+              value: "443"

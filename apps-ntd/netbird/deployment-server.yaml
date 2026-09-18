@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: netbird-server
+spec:
+  selector:
+    matchLabels:
+      app: netbird-server
+  template:
+    metadata:
+      labels:
+        app: netbird-server
+    spec:
+      containers:
+        - name: netbird-server
+          image: netbirdio/netbird-server:latest
+          args:
+            - "--config"
+            - "/etc/netbird/config.yaml"
+          volumeMounts:
+            - name: config
+              readOnly: true
+              mountPath: /etc/netbird/config.yaml
+              subPath: config.yaml
+            - name: netbird-data
+              mountPath: /var/lib/netbird
+          ports:
+            - containerPort: 3478
+      volumes:
+        - name: config
+          configMap:
+            name: netbird-server-config
+        - name: netbird-data
+          persistentVolumeClaim:
+            claimName: s3-netbird-data

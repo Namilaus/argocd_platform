@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: http
+  labels:
+    app.kubernetes.io/name: http
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - netbird.atayi.net
+      secretName: netbird-tls
+  rules:
+    - host: netbird.atayi.net
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: netbird-dashboard-service
+                port:
+                  number: 80
