@@ -24,7 +24,7 @@ spec:
               value: https://netbird-mgmt.atayi.net
             - name: AUTH_AUDIENCE
               value: netbird-dashboard
-            - name: AUTH_AUDIENCE_ID
+            - name: AUTH_CLIENT_ID
               value: netbird-dashboard
             - name: AUTH_AUTHORITY
               value: https://netbird-mgmt.atayi.net/oauth2
