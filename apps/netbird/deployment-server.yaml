@@ -25,7 +25,11 @@ spec:
             - name: netbird-data
               mountPath: /var/lib/netbird
           ports:
-            - containerPort: 3478
+            - name: http
+              containerPort: 80
+            - name: stun
+              containerPort: 3478
+              protocol: UDP
       volumes:
         - name: config
           configMap:

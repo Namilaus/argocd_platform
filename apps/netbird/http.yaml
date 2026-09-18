@@ -7,11 +7,16 @@ metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     argocd.argoproj.io/sync-wave: "1"
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.priority: "1"
+
 spec:
   ingressClassName: traefik
   tls:
     - hosts:
         - netbird.atayi.net
+        - netbird-mgmt.atayi.net
       secretName: netbird-tls
   rules:
     - host: netbird.atayi.net
@@ -23,4 +28,15 @@ spec:
               service:
                 name: netbird-dashboard-service
                 port:
-                  number: 80
+                  name: http
+
+    - host: netbird-mgmt.atayi.net
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: netbird-server-service
+                port:
+                  name: http

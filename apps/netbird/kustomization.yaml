@@ -8,3 +8,4 @@ resources:
   - service-server.yaml
   - http.yaml
   - pvc.yaml
+  - service-stun.yaml

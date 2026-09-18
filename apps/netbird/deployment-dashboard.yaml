@@ -14,17 +14,20 @@ spec:
       containers:
         - name: netbird-dashboard
           image: netbirdio/dashboard:latest
+          ports:
+            - name: http
+              containerPort: 80
           env:
             - name: NETBIRD_MGMT_API_ENDPOINT
-              value: https://netbird.atayi.net
+              value: https://netbird-mgmt.atayi.net
             - name: NETBIRD_MGMT_GRPC_API_ENDPOINT
-              value: https://netbird.atayi.net
+              value: https://netbird-mgmt.atayi.net
             - name: AUTH_AUDIENCE
               value: netbird-dashboard
             - name: AUTH_AUDIENCE_ID
               value: netbird-dashboard
             - name: AUTH_AUTHORITY
-              value: https://netbird.atayi.net/oauth2
+              value: https://netbird-mgmt.atayi.net/oauth2
             - name: USE_AUTH0
               value: "false"
             - name: AUTH_REDIRECT_URI

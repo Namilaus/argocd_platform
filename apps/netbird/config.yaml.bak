@@ -6,7 +6,7 @@ data:
   config.yaml: |
     server:
       listenAddress: ":80"
-      exposedAddress: "https://netbird.atayi.net:443"
+      exposedAddress: "https://netbird-mgmt.atayi.net:443"
       stunPorts:
         - 3478
       metricsPort: 9090
@@ -18,7 +18,7 @@ data:
       dataDir: "/var/lib/netbird"
 
       auth:
-        issuer: "https://netbird.atayi.net/oauth2"
+        issuer: "https://netbird-mgmt.atayi.net/oauth2"
         signKeyRefreshEnabled: true
         sessionCookieEncryptionKey: "x"
         dashboardRedirectURIs:
