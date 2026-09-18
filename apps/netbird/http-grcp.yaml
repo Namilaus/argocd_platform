@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: http
+  name: http-grcp
   labels:
     app.kubernetes.io/name: http
   annotations:
@@ -9,31 +9,35 @@ metadata:
     argocd.argoproj.io/sync-wave: "1"
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
-    traefik.ingress.kubernetes.io/router.priority: "1"
+    traefik.ingress.kubernetes.io/router.priority: "10"
+    traefik.ingress.kubernetes.io/service.serversscheme: h2c
+
 spec:
   ingressClassName: traefik
   tls:
     - hosts:
-        - netbird.atayi.net
         - netbird-mgmt.atayi.net
       secretName: netbird-tls
   rules:
-    - host: netbird.atayi.net
-      http:
-        paths:
-          - pathType: Prefix
-            path: "/"
-            backend:
-              service:
-                name: netbird-dashboard-service
-                port:
-                  name: http
-
     - host: netbird-mgmt.atayi.net
       http:
         paths:
           - pathType: Prefix
-            path: "/"
+            path: "/management.ManagementService/"
+            backend:
+              service:
+                name: netbird-server-service
+                port:
+                  name: http
+          - pathType: Prefix
+            path: "/signalexchange.SignalExchange/"
+            backend:
+              service:
+                name: netbird-server-service
+                port:
+                  name: http
+          - pathType: Prefix
+            path: "/management.ProxyService/"
             backend:
               service:
                 name: netbird-server-service
