@@ -9,3 +9,4 @@ resources:
   - http.yaml
   - pvc.yaml
   - service-stun.yaml
+  - http-grcp.yaml
