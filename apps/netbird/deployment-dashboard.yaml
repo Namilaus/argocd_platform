@@ -36,3 +36,7 @@ spec:
               value: /nb-silent-auth
             - name: NGINX_SSL_PORT
               value: "443"
+            - name: AUTH_SUPPORTED_SCOPES
+              value: "openid profile email groups"
+            - name: AUTH_CLIENT_SECRET
+              value: ""
