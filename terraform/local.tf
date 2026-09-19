@@ -1,5 +1,5 @@
 locals {
-  nodes = {
+  control-plane-nodes = {
     "control-panel" = {
       image        = "ubuntu-26.04"
       server_type  = "cx23"
@@ -12,21 +12,24 @@ locals {
       curl -sfL https://get.k3s.io | K3S_TOKEN=${random_string.k3s-token.result} sh -
       EOT
     },
+  }
+
+  worker-nodes = {
     "worker-01" = {
       image        = "ubuntu-26.04"
       server_type  = "cx23"
-      location     = var.default-location
+      location     = false
       public_ip_v4 = false
       public_ip_v6 = true
       user_data    = <<-EOT
       #!/bin/bash
       set -eux
-      until curl -sf https://${hcloud_floating_ip.control-panel-public-ip-v4.ip_address}:6443 > /dev/null; do
+      until nc -z ${local.control-panel-private-ip} 6443; do
         echo "waiting for k3s api..."
         sleep 5
       done
       
-      curl -sfL https://get.k3s.io | K3S_URL=https://${hcloud_floating_ip.control-panel-public-ip-v4.ip_address}:6443 K3S_TOKEN=${random_string.k3s-token.result} sh -
+      curl -6 -sfL https://get.k3s.io | K3S_URL=https://${local.control-panel-private-ip}:6443 K3S_TOKEN=${random_string.k3s-token.result} sh -
       EOT
     },
     "worker-02" = {
@@ -37,13 +40,16 @@ locals {
       public_ip_v6 = true
       user_data    = <<-EOT
       #!/bin/bash
-      until curl -sf https://${hcloud_floating_ip.control-panel-public-ip-v4.ip_address}:6443 > /dev/null; do
+      until nc -z ${local.control-panel-private-ip} 6443; do
         echo "waiting for k3s api..."
         sleep 5
       done
       
-      curl -sfL https://get.k3s.io | K3S_URL=https://${hcloud_floating_ip.control-panel-public-ip-v4.ip_address}:6443 K3S_TOKEN=${random_string.k3s-token.result} sh -
+      curl -6 -sfL https://get.k3s.io | K3S_URL=https://${local.control-panel-private-ip}:6443 K3S_TOKEN=${random_string.k3s-token.result} sh -
       EOT
     }
   }
+  control-panel-private-ip = one([
+    for n in hcloud_server.k3s-control-panel["control-panel"].network : n.ip
+  ])
 }

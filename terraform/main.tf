@@ -60,19 +60,9 @@ resource "hcloud_firewall" "k3s-control-panel-firewall" {
 
 }
 
-resource "hcloud_floating_ip" "control-panel-public-ip-v4" {
-  type          = "ipv4"
-  home_location = var.default-location
-}
-
-resource "hcloud_floating_ip_assignment" "assign-ip-to-control-panel" {
-  floating_ip_id = hcloud_floating_ip.control-panel-public-ip-v4.id
-  server_id      = hcloud_server.k3s-cluster["control-panel"].id
-}
-
 resource "hcloud_firewall_attachment" "assign-firewall-to-control-panel" {
   firewall_id = hcloud_firewall.k3s-control-panel-firewall.id
-  server_ids  = [hcloud_server.k3s-cluster["control-panel"].id]
+  server_ids  = [hcloud_server.k3s-control-panel["control-panel"].id, hcloud_server.k3s-workers["worker-01"].id]
 }
 
 resource "hcloud_ssh_key" "default-ssh-key" {
@@ -80,8 +70,8 @@ resource "hcloud_ssh_key" "default-ssh-key" {
   public_key = file(pathexpand(var.ssh_public_key_path))
 }
 
-resource "hcloud_server" "k3s-cluster" {
-  for_each    = local.nodes
+resource "hcloud_server" "k3s-control-panel" {
+  for_each    = local.control-plane-nodes
   name        = each.key
   server_type = each.value.server_type
   image       = each.value.image
@@ -97,4 +87,24 @@ resource "hcloud_server" "k3s-cluster" {
     ipv4_enabled = each.value.public_ip_v4
     ipv6_enabled = each.value.public_ip_v6
   }
+}
+
+resource "hcloud_server" "k3s-workers" {
+  for_each    = local.worker-nodes
+  name        = each.key
+  server_type = each.value.server_type
+  image       = each.value.image
+  location    = each.value.location
+  user_data   = each.value.user_data
+  ssh_keys    = [hcloud_ssh_key.default-ssh-key.id]
+
+  network {
+    subnet_id = hcloud_network_subnet.k3s-subnet.id
+  }
+
+  public_net {
+    ipv4_enabled = each.value.public_ip_v4
+    ipv6_enabled = each.value.public_ip_v6
+  }
+  depends_on = [hcloud_server.k3s-control-panel]
 }
