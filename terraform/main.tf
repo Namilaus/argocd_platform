@@ -11,7 +11,7 @@ resource "hcloud_network_subnet" "k3s-subnet" {
   ip_range     = "10.0.0.0/24"
 }
 
-resource "hcloud_firewall" "k3s-control-panel-firewall" {
+resource "hcloud_firewall" "k3s-control-plane-firewall" {
   name = "k3s-networks-firewall"
   rule {
     direction       = "in"
@@ -60,9 +60,26 @@ resource "hcloud_firewall" "k3s-control-panel-firewall" {
 
 }
 
-resource "hcloud_firewall_attachment" "assign-firewall-to-control-panel" {
-  firewall_id = hcloud_firewall.k3s-control-panel-firewall.id
-  server_ids  = [hcloud_server.k3s-control-panel["control-panel"].id, hcloud_server.k3s-workers["worker-01"].id]
+resource "hcloud_firewall" "k3s-worker-firewall" {
+  name = "k3s-worker-firewall"
+  rule {
+    direction       = "in"
+    protocol        = "tcp"
+    port            = "22"
+    source_ips      = ["0.0.0.0/0", "::/0"]
+    destination_ips = ["0.0.0.0/0", "::/0"]
+    description     = "Allow ssh"
+  }
+}
+
+resource "hcloud_firewall_attachment" "assign-worker-firewall" {
+  firewall_id = hcloud_firewall.k3s-worker-firewall.id
+  server_ids  = [for server in hcloud_server.k3s-workers : server.id]
+}
+
+resource "hcloud_firewall_attachment" "assign-firewall-to-control-plane" {
+  firewall_id = hcloud_firewall.k3s-control-plane-firewall.id
+  server_ids  = [hcloud_server.k3s-control-plane["control-plane"].id]
 }
 
 resource "hcloud_ssh_key" "default-ssh-key" {
@@ -70,7 +87,7 @@ resource "hcloud_ssh_key" "default-ssh-key" {
   public_key = file(pathexpand(var.ssh_public_key_path))
 }
 
-resource "hcloud_server" "k3s-control-panel" {
+resource "hcloud_server" "k3s-control-plane" {
   for_each    = local.control-plane-nodes
   name        = each.key
   server_type = each.value.server_type
@@ -81,6 +98,7 @@ resource "hcloud_server" "k3s-control-panel" {
 
   network {
     subnet_id = hcloud_network_subnet.k3s-subnet.id
+    ip        = each.value.localip
   }
 
   public_net {
@@ -100,11 +118,12 @@ resource "hcloud_server" "k3s-workers" {
 
   network {
     subnet_id = hcloud_network_subnet.k3s-subnet.id
+    ip        = each.value.localip
   }
 
   public_net {
     ipv4_enabled = each.value.public_ip_v4
     ipv6_enabled = each.value.public_ip_v6
   }
-  depends_on = [hcloud_server.k3s-control-panel]
+  depends_on = [hcloud_server.k3s-control-plane]
 }

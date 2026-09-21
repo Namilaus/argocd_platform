@@ -1,0 +1,8 @@
+#!/bin/bash
+set -eux
+until curl -ksf "https://${localip-control-plane}:6443/ping"; do sleep 5; done
+NODE_IP=${localip}
+curl -sfL https://get.k3s.io | \
+  K3S_URL="https://${localip-control-plane}:6443" \
+  K3S_TOKEN="${token}" \
+  INSTALL_K3S_EXEC="agent --node-ip $NODE_IP" sh -

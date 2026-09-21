@@ -1,16 +1,16 @@
 locals {
   control-plane-nodes = {
-    "control-panel" = {
+    "control-plane" = {
       image        = "ubuntu-26.04"
       server_type  = "cx23"
       location     = var.default-location
       public_ip_v4 = true
       public_ip_v6 = true
-      user_data    = <<-EOT
-      #!/bin/bash
-      set -eux
-      curl -sfL https://get.k3s.io | K3S_TOKEN=${random_string.k3s-token.result} sh -
-      EOT
+      localip      = "10.0.0.2"
+      user_data = templatefile("./scripts/control-plane-init.sh.tftpl", {
+        localip = "10.0.0.2",
+        token   = random_string.k3s-token.result
+      })
     },
   }
 
@@ -18,38 +18,29 @@ locals {
     "worker-01" = {
       image        = "ubuntu-26.04"
       server_type  = "cx23"
-      location     = false
-      public_ip_v4 = false
+      location     = var.default-location
+      public_ip_v4 = true
       public_ip_v6 = true
-      user_data    = <<-EOT
-      #!/bin/bash
-      set -eux
-      until nc -z ${local.control-panel-private-ip} 6443; do
-        echo "waiting for k3s api..."
-        sleep 5
-      done
-      
-      curl -6 -sfL https://get.k3s.io | K3S_URL=https://${local.control-panel-private-ip}:6443 K3S_TOKEN=${random_string.k3s-token.result} sh -
-      EOT
+      localip      = "10.0.0.3",
+      user_data = templatefile("./scripts/worker-init.sh.tftpl", {
+        localip               = "10.0.0.3",
+        localip-control-plane = "10.0.0.2"
+        token                 = random_string.k3s-token.result
+      })
     },
+
     "worker-02" = {
       image        = "ubuntu-26.04"
       server_type  = "cx23"
       location     = var.default-location
-      public_ip_v4 = false
+      public_ip_v4 = true
       public_ip_v6 = true
-      user_data    = <<-EOT
-      #!/bin/bash
-      until nc -z ${local.control-panel-private-ip} 6443; do
-        echo "waiting for k3s api..."
-        sleep 5
-      done
-      
-      curl -6 -sfL https://get.k3s.io | K3S_URL=https://${local.control-panel-private-ip}:6443 K3S_TOKEN=${random_string.k3s-token.result} sh -
-      EOT
+      localip      = "10.0.0.4"
+      user_data = templatefile("./scripts/worker-init.sh.tftpl", {
+        localip               = "10.0.0.4",
+        localip-control-plane = "10.0.0.2"
+        token                 = random_string.k3s-token.result
+      })
     }
   }
-  control-panel-private-ip = one([
-    for n in hcloud_server.k3s-control-panel["control-panel"].network : n.ip
-  ])
 }
