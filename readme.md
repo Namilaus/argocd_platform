@@ -50,5 +50,13 @@ The configuration is organized into platform components, applications, and older
 apps/          Application manifests and Helm values
 argocd/        Argo CD applications and ApplicationSets
 platform/      Shared platform services such as certificates and storage
+terraform/     Hetzner Cloud and K3s infrastructure
 old_but_gold/  Previous experiments and older working configurations
 apps-ntd/      Additional or unfinished application configuration
+```
+
+## Setup
+
+The cluster is created with Terraform on Hetzner Cloud. The bootstrap scripts install K3s on one control-plane node and two workers.
+
+The rebuild steps are documented in [setup.md](setup.md). Secrets, kubeconfig files, and Terraform variables stay outside Git.
