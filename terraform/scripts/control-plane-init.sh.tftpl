@@ -1,6 +1,15 @@
 #!/bin/bash
 set -eux
 
+printf "network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp7s0:
+      dhcp4: true" > /etc/netplan/60-private-network.yaml
+
+netplan generate
+netplan apply
 
 until ip -4 -o addr show | grep -q " ${localip}/"; do sleep 2; done
 PUBLIC_IPV4=$(curl -sf https://api.ipify.org)
@@ -12,4 +21,5 @@ curl -sfL --retry 5 --retry-all-errors https://get.k3s.io | \
     --advertise-address ${localip} \
     --node-external-ip $PUBLIC_IPV4 \
     --tls-san $PUBLIC_IPV4 \
+    --flannel-iface enp7s0 \
     --secrets-encryption" sh -
