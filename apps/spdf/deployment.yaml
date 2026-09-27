@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spdf
+spec:
+  selector:
+    matchLabels:
+      app: spdf
+  template:
+    metadata:
+      labels:
+        app: spdf
+    spec:
+      containers:
+        - name: spdf
+          image: stirlingtools/stirling-pdf:latest
+          ports:
+            - name: http
+              port: 8080
+              containerPort: 8080
