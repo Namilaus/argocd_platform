@@ -9,7 +9,7 @@ spec:
   tls:
     - hosts:
         - pdf.atayi.net
-      secretName: stalwart-tls
+      secretName: spdf-secret
   rules:
     - host: pdf.atayi.net
       http:
