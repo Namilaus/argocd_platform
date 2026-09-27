@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: http-route
   labels:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    argocd.argoproj.io/sync-wave: "1"
     app.kubernetes.io/name: http-route
 spec:
   ingressClassName: traefik
