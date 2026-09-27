@@ -16,5 +16,4 @@ spec:
           image: stirlingtools/stirling-pdf:latest
           ports:
             - name: http
-              port: 8080
               containerPort: 8080
