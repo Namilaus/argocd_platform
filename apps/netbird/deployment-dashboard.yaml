@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: netbird-dashboard
-          image: netbirdio/dashboard:latest
+          image: netbirdio/dashboard:2.92.0
           ports:
             - name: http
               containerPort: 80
