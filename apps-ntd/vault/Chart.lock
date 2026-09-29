@@ -1,0 +1,6 @@
+dependencies:
+- name: self-host
+  repository: https://charts.bitwarden.com
+  version: 2.4.2
+digest: sha256:7c9513599a9a4d9c45657bdfd7003bee802b7358f388f3f62deb267cb996a225
+generated: "2026-09-27T22:42:08.4985365+02:00"
