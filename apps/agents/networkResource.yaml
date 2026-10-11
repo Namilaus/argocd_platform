@@ -1,0 +1,12 @@
+apiVersion: netbird.io/v1alpha1
+kind: NetworkResource
+metadata:
+  name: hermes
+spec:
+  networkRouterRef:
+    name: prod-netbird
+    namespace: netbird
+  serviceRef:
+    name: hermes-service
+  groups:
+    - name: All
