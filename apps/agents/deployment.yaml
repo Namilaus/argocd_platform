@@ -20,7 +20,7 @@ spec:
           env:
             - name: HERMES_DASHBOARD
               value: "1"
-            - name: API_SERVER_HOST
+            - name: HERMES_DASHBOARD_HOST
               value: "127.0.0.1"
           ports:
             - name: http
