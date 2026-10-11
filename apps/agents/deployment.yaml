@@ -21,7 +21,7 @@ spec:
             - name: HERMES_DASHBOARD
               value: "1"
             - name: HERMES_DASHBOARD_HOST
-              value: "127.0.0.1"
+              value: "0.0.0.0"
           ports:
             - name: http
               containerPort: 9119
