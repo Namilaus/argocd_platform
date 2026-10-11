@@ -6,6 +6,6 @@ spec:
   selector:
     app: hermes
   ports:
-    - name: https
-      port: 443
+    - name: http
+      port: 80
       targetPort: http
