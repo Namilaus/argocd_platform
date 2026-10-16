@@ -16,7 +16,7 @@ spec:
           imageName: "netbirdio/netbird-server"
           commonUpdateSettings:
             updateStrategy: "semver"
-        # - alias: "netbird-dashboard"
-        #   imageName: "netbirdio/dashboard"
-        #   commonUpdateSettings:
-        #     updateStrategy: "digest"
+        - alias: "netbird-dashboard"
+          imageName: "netbirdio/dashboard"
+          commonUpdateSettings:
+            updateStrategy: "digest"
