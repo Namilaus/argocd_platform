@@ -1,0 +1,12 @@
+apiVersion: netbird.io/v1alpha1
+kind: NetworkResource
+metadata:
+  name: db
+spec:
+  networkRouterRef:
+    name: prod-netbird
+    namespace: netbird
+  serviceRef:
+    name: mysql
+  groups:
+    - name: All
