@@ -19,4 +19,4 @@ spec:
         - alias: "netbird-dashboard"
           imageName: "netbirdio/dashboard"
           commonUpdateSettings:
-            updateStrategy: "newest-build"
+            updateStrategy: "digest"
