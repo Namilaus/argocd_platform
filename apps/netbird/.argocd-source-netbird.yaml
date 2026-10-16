@@ -1,4 +1,3 @@
 kustomize:
   images:
-  - netbirdio/netbird-server:0.81.2
-  - netbirdio/dashboard:main-ubi
+    - netbirdio/netbird-server:0.81.2
