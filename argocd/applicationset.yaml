@@ -1,36 +1,31 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
-
 metadata:
   name: applications
   namespace: argocd
-
 spec:
   goTemplate: true
   generators:
     - git:
         repoURL: https://github.com/Namilaus/argocd_platform.git
         revision: HEAD
-
         directories:
           - path: apps/*
-
   template:
     metadata:
       name: "{{ .path.basename }}"
-
+      annotations:
+        argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/github-creds
+        argocd-image-updater.argoproj.io/myalias.update-strategy: semver
     spec:
       project: default
-
       source:
         repoURL: https://github.com/Namilaus/argocd_platform.git
         targetRevision: HEAD
         path: "{{ .path.path }}"
-
       destination:
         server: https://kubernetes.default.svc
         namespace: "{{ .path.basename }}"
-
       syncPolicy:
         automated:
           prune: true
