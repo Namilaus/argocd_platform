@@ -12,3 +12,4 @@ resources:
   - http-grpc.yaml
   - service-server-grpc.yaml
   - NetworkRouter.yaml
+  - update-strategy.yaml
