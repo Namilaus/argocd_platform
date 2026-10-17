@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: spdf
-          image: stirlingtools/stirling-pdf:latest
+          image: stirlingtools/stirling-pdf:3.2.0
           ports:
             - name: http
               containerPort: 8080

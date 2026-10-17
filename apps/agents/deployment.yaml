@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: hermes
-          image: nousresearch/hermes-agent:latest
+          image: nousresearch/hermes-agent:v0.22.2
           args:
             - gateway
             - run
