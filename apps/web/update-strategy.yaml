@@ -1,7 +1,7 @@
 apiVersion: argocd-image-updater.argoproj.io/v1alpha1
 kind: ImageUpdater
 metadata:
-  name: netbird-update-strategy
+  name: web-update-strategy
   namespace: argocd
 spec:
   writeBackConfig:
@@ -10,9 +10,9 @@ spec:
       repository: "https://github.com/Namilaus/argocd_platform"
       branch: "main"
   applicationRefs:
-    - namePattern: "agents"
+    - namePattern: "web"
       images:
-        - alias: "hermes"
-          imageName: "nousresearch/hermes-agent"
+        - alias: "web"
+          imageName: "namialus/namialusweb-web:latest"
           commonUpdateSettings:
-            updateStrategy: "semver"
+            updateStrategy: "digest"

@@ -5,3 +5,4 @@ resources:
   - deployment.yaml
   - http.yaml
   - service.yaml
+  - update-strategy.yaml

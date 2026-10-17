@@ -6,3 +6,4 @@ resources:
   - service.yaml
   - networkResource.yaml
   - pvc.yaml
+  - update-strategy.yaml

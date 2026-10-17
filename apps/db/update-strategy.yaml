@@ -1,0 +1,18 @@
+apiVersion: argocd-image-updater.argoproj.io/v1alpha1
+kind: ImageUpdater
+metadata:
+  name: db-update-strategy
+  namespace: argocd
+spec:
+  writeBackConfig:
+    method: "git:secret:argocd/github-creds"
+    gitConfig:
+      repository: "https://github.com/Namilaus/argocd_platform"
+      branch: "main"
+  applicationRefs:
+    - namePattern: "db"
+      images:
+        - alias: "mysql"
+          imageName: "mysql:latest"
+          commonUpdateSettings:
+            updateStrategy: "digest"
