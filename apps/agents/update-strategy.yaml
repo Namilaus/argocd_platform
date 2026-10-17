@@ -13,6 +13,6 @@ spec:
     - namePattern: "agents"
       images:
         - alias: "hermes"
-          imageName: "nousresearch/hermes-agent"
+          imageName: "nousresearch/hermes-agent:latest"
           commonUpdateSettings:
-            updateStrategy: "semver"
+            updateStrategy: "digest"
