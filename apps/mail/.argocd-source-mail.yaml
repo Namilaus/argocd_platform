@@ -1,0 +1,3 @@
+kustomize:
+  images:
+  - stalwartlabs/stalwart:v0.16.27
