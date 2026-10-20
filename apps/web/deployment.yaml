@@ -11,6 +11,8 @@ spec:
       labels:
         app: web
     spec:
+      imagePullSecrets:
+        - name: dockerhub-creds
       containers:
         - name: web
           image: namialus/namialusweb-web:latest
