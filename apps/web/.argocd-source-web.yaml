@@ -1,0 +1,3 @@
+kustomize:
+  images:
+  - namialus/namialusweb-web:latest@sha256:c0e664462348398db438a4e8f3ed0f2b7aeed54d0797c04b91dcc8ef1fbbe05d
