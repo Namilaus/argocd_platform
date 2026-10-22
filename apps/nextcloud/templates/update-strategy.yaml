@@ -1,0 +1,22 @@
+apiVersion: argocd-image-updater.argoproj.io/v1alpha1
+kind: ImageUpdater
+metadata:
+  name: netbird-update-strategy
+  namespace: argocd
+spec:
+  writeBackConfig:
+    method: "git:secret:argocd/github-creds"
+    gitConfig:
+      repository: "https://github.com/Namilaus/argocd_platform"
+      branch: "main"
+  applicationRefs:
+    - namePattern: "nextcloud"
+      images:
+        - alias: "nextcloud"
+          imageName: "nextcloud"
+          commonUpdateSettings:
+            updateStrategy: "semver"
+            allowTags: "regexp:^[0-9]+\\.[0-9]+\\.[0-9]+-apache$"
+          manifestTargets:
+            helm:
+              tag: "nextcloud.image.tag"
