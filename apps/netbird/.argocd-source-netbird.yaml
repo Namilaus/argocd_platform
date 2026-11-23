@@ -1,4 +1,4 @@
 kustomize:
   images:
   - netbirdio/netbird-server:0.83.2
-  - netbirdio/dashboard:main@sha256:d3be08aa43bf66be03490bfbf535adc2561b11af7f2b6a6564a936e631134ca4
+  - netbirdio/dashboard:main@sha256:7e2ebc1bc15398094b33d4820ffb2302061fa642580d933beceb8656fb995d1f
